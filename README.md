@@ -1,7 +1,7 @@
 MayoForm
 ========
 
-PHP Class to easily generate &amp; validate HTML Forms
+PHP Class to easily generate &amp; validate HTML Forms.
 
 <h1>Installation</h1>
 
@@ -16,6 +16,8 @@ Note that the default template uses bootstrap, so you can load bootstrap CSS and
 CSS code.
 
 <h1>Usage</h1>
+
+<h2>Form creation</h2>
 
 To create a form, you have to create a new class which extends the MayoForm class.
 
@@ -37,7 +39,7 @@ class Form_Example extends MayoForm
 }
 ```
 
-You can now create your form with the MayoForm methods, by overriding the constructor and giving an array filled with the form attributes as argument
+You can now create your form with the MayoForm methods, by overriding the constructor and giving an array filled with the form attributes as argument.
 
 ``` php
 class Form_Example extends MayoForm
@@ -55,4 +57,72 @@ class Form_Example extends MayoForm
     
     ....
 }
+```
+
+Once the form is created, just add every field you need with the MayoForm::addField($array) method (see the "Field options" for more details).
+
+``` php
+class Form_Example extends MayoForm
+{
+    ....
+    
+    $this->addField(array(
+            'field' => 'input',
+            'label' => 'Sexe *',
+            'type' => 'radio',
+            'required',
+            'name' => 'sexe',
+            'values' => array(
+                'Man' => 'M',
+                'Woman' => 'W'
+            ),
+            'class' => 'inline',
+            'value' => 'M'))
+        ->addField(array(
+                'field' => 'input',
+                'type' => 'text',
+                'required',
+                'pattern' => '^[a-zA-Z0-9]{4,30}$',
+                'name' => 'login',
+                'label' => 'Login *',
+                'help' => 'From 4 to 30 characters (letters and digits only)',
+                'placeholder' => 'Login'))
+                
+    ....
+}
+```
+
+Once all your fields are created, you can add the submit button with the MayoForm::addSubmit() method (you can also use the MayoForm::addField() method if you want to personnalize the button with some attributes).
+
+``` php
+class Form_Example extends MayoForm
+{
+    ....
+    
+    $this->addSubmit();
+                
+    ....
+}
+```
+
+Your form is now complete, we will now see how to print and validate it.
+
+<h2>Form manipulation</h2>
+
+Now that your Form class is complete, you can print & validate the form using the following methods.
+
+``` php
+$form = new Form_Example();
+$showForm = TRUE;
+
+if($form->hasBeenSent()) {
+    if($form->validate($_POST)) {
+        
+        echo 'Form sent !';
+        $showForm = FALSE;
+    
+    }
+}
+
+echo $form;
 ```
