@@ -132,11 +132,11 @@ Keyword marked by * are required.
 
 <h2>Common keyword</h2>
 
-- <strong>field *</strong> : String - The type of the field. Can be 'input', 'submit', 'textarea' or 'select'
-- <strong>label *</strong> : String - The label of the field
-- name * : String - The name attribute of the field
-- <strong>help</strong> : String - A description of what is expected in the field
-- <strong>equals</strong> : String - The name attribute of the field which must be equal to this field
+- <strong>field *</strong> :        String - The type of the field. Can be 'input', 'submit', 'textarea' or 'select'
+- <strong>label *</strong> :        String - The label of the field
+- name * :                          String - The name attribute of the field
+- <strong>help</strong> :           String - A description of what is expected in the field
+- <strong>equals</strong> :         String - The name attribute of the field which must be equal to this field
 
 <h2>Input keyword</h2>
 
