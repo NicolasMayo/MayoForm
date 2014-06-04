@@ -103,7 +103,7 @@ class Form_Example extends MayoForm
 }
 ```
 
-Your form is now complete, we will now see how to print and validate it.
+Your form is now complete, we will now see how to print and validate it. You can check the Form_Example class included in this repository to see some other field examples.
 
 <h2>Form manipulation</h2>
 
@@ -125,7 +125,20 @@ echo $form;
 
 <h1>Fields options</h1>
 
-The keywords marked with * are required, the ones marked with ~ are required in some cases :
+You can add any option you desire, they will be considered and displayed like field's attributes (such as name, value, ...).
+However, some options of the options listed below (the bold ones) are interpreted by MayoForm and are not displayed in the HTML code (those .
 
-- field * : The type of the field. Can be 'input', 'submit', 'textarea' or 'select'
-- type ~ : The type of the input (like 'text', 'submit', 'radio', 'checkbox', ...). Required if the field value is 'input'
+Keyword marked by * are required.
+
+<h2>Common keyword</h2>
+
+- <strong>field *</strong> : String - The type of the field. Can be 'input', 'submit', 'textarea' or 'select'
+- <strong>label *</strong> : String - The label of the field
+- name * : String - The name attribute of the field
+- <strong>help</strong> : String - A description of what is expected in the field
+- <strong>equals</strong> : String - The name attribute of the field which must be equal to this field
+
+<h2>Input keyword</h2>
+
+- type * : The type attribute of the input
+- allowed : Array of String - Extensions allowed if the field is an input[file] (currently support .gif, .jpeg, .png)
