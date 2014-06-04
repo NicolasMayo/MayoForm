@@ -3,6 +3,8 @@ MayoForm
 
 PHP Class to easily generate &amp; validate HTML Forms.
 
+Please not that this module is still in development, so source code may not be clean
+
 
 <h1>Installation</h1>
 
