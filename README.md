@@ -79,15 +79,15 @@ class Form_Example extends MayoForm
             'class' => 'inline',
             'value' => 'M'))
         ->addField(array(
-                'field' => 'input',
-                'type' => 'text',
-                'required',
-                'pattern' => '^[a-zA-Z0-9]{4,30}$',
-                'name' => 'login',
-                'label' => 'Login *',
-                'help' => 'From 4 to 30 characters (letters and digits only)',
-                'placeholder' => 'Login'))
-                
+            'field' => 'input',
+            'type' => 'text',
+            'required',
+            'pattern' => '^[a-zA-Z0-9]{4,30}$',
+            'name' => 'login',
+            'label' => 'Login *',
+            'help' => 'From 4 to 30 characters (letters and digits only)',
+            'placeholder' => 'Login'))
+            
     ....
 }
 ```
@@ -117,10 +117,8 @@ $showForm = TRUE;
 
 if($form->hasBeenSent()) {
     if($form->validate($_POST)) {
-        
         echo 'Form sent !';
         $showForm = FALSE;
-    
     }
 }
 
