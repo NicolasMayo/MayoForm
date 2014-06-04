@@ -21,7 +21,9 @@ To explain how to use this class, I will explain the included Form_Example file 
 should be able to understand how to use it yourself).
 
 To create a form, you have to create a new class which extends the MayoForm class
-<pre><code>class Form_Example extends MayoForm
+<pre><code>```php
+class Form_Example extends MayoForm
 {
     ...
-}</code></pre>
+}
+```</code></pre>
