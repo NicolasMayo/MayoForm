@@ -195,7 +195,7 @@ class Field
                         $tmpString .= 'checked="checked" ';
                     }
                     $tmpString .= '/>' . $label;
-                    $string .= sprintf(FORM_HTML_RADIO_CHECKBOX_LABEL, $class, $tmpString);
+                    $string .= sprintf(MAYOFORM_HTML_RADIO_CHECKBOX_LABEL, $class, $tmpString);
                 }
             } else {
 
@@ -229,13 +229,13 @@ class Field
             $string .= '</select>';
         }
 
-        if (!empty($this->help)) $string .= sprintf(FORM_HTML_INPUT_HELP, $this->help);
+        if (!empty($this->help)) $string .= sprintf(MAYOFORM_HTML_INPUT_HELP, $this->help);
         if (!empty($this->label)) {
-            $string = sprintf(FORM_HTML_FIELD_CONTAINER, $string);
-            $string = sprintf(FORM_HTML_INPUT_LABEL, $attributes['name'], $this->label) . $string;
-        } else $string = sprintf(FORM_HTML_FIELD_CONTAINER, $string);
+            $string = sprintf(MAYOFORM_HTML_FIELD_CONTAINER, $string);
+            $string = sprintf(MAYOFORM_HTML_INPUT_LABEL, $attributes['name'], $this->label) . $string;
+        } else $string = sprintf(MAYOFORM_HTML_FIELD_CONTAINER, $string);
 
-        return sprintf(FORM_HTML_FIELD_GLOBAL_CONTAINER, $this->error, $string);
+        return sprintf(MAYOFORM_HTML_FIELD_GLOBAL_CONTAINER, $this->error, $string);
     }
 
     public function getAttributes()
