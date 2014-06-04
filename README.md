@@ -22,7 +22,7 @@ should be able to understand how to use it yourself).
 
 To create a form, you have to create a new class which extends the MayoForm class
 <pre>
-    <code><span style="color: #000080">class</span> Form_Example <span style="color: #000080">extends</span> MayoForm
+    <code><span class="nb">class</span> Form_Example <span class="nb">extends</span> MayoForm
 {
     ...
 }</code>
