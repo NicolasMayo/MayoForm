@@ -107,7 +107,12 @@ Your form is now complete, we will now see how to print and validate it. You can
 
 <h2>Form manipulation</h2>
 
-Now that your Form class is complete, you can print & validate the form using the following methods.
+Now that your Form class is complete, you can print & validate the form using the following methods :
+
+- MayoForm::hasBeenSent() - boolean : Return TRUE if the form has been sent, FALSE otherwise
+- MayoForm::validate(array $post) - boolean : Return TRUE if the $post array matches the form expected values, FALSE otherwise
+- MayoForm::getValue(string $field) - mixed : Return the value of the field $field, or NULL if the field doesn't exist
+- MayoForm::__toString() - string : Prints the form
 
 ``` php
 $form = new Form_Example();
@@ -125,7 +130,7 @@ echo $form;
 
 <h1>Fields options</h1>
 
-You can add any option you desire, they will be considered and displayed like field's attributes (such as name, value, ...). All 
+You can add any option you desire (most likely 'id', 'class', 'style', ...), they will be considered and displayed like field's attributes (such as name, value, ...).
 However, some options of the options listed below (the bold ones) are interpreted by MayoForm and are not displayed in the HTML code (those .
 
 Keywords marked by * are required.
@@ -137,20 +142,23 @@ Keywords marked by * are required.
 - name * => string : The name attribute of the field
 - <strong>help</strong> => string : A description of what is expected in the field
 - <strong>equals</strong> => string : The name attribute of the field which must be equal to this field
-- required : Whether the field is required or not. Will be checked in PHP.
+- required : Whether the field is required or not. Will be checked in PHP too
 
 <h2>Input keywords</h2>
 
-- type * => string - The type attribute of the input
+- type * => string : The type attribute of the input
+- pattern => string : A regex which the value has to match. Will be checked in PHP too
 
 <h3>Radios & Checkboxes</h3>
 
-- <strong>values *</strong> => Array of (string => string) - Values and labels of all the choices
+- <strong>values *</strong> => Array of (string => string) : Values and labels of all the choices
 
 For example :
 ``` php
 $this->addField(array(
     'field' => 'input',
+    'label' => 'Sexe',
+    'name' => 'sexe',
     'type' => 'checkbox',
     'values' =>  array(
         'Man' => 'M',
@@ -160,16 +168,43 @@ $this->addField(array(
 
 <h3>File</h3>
 
-- max_size => string - The max size of the file. Will be checked in PHP.
-- <strong>allowed</strong> => Array of string - Extensions allowed (currently support .gif, .jpeg, .png). Will be checked in PHP.
+- max_size => string : The max size of the file. Will be checked in PHP too
+- <strong>allowed</strong> => Array of string : Extensions allowed (currently support .gif, .jpeg, .png). Will be checked in PHP
 
 For example :
 ``` php
 $this->addField(array(
     'field' => 'input',
+    'label' => 'Photo',
+    'name' => 'photo',
     'type' => 'file',
     'allowed' => array('.gif', '.jpeg', '.png')
 ));
 ```
 
-<h2></h2>
+<h2>Select keywords</h2>
+
+- <strong>options *</strong> => Array of (Array of (string => string)) : choices of the select field
+
+<h3>Options keywords</h3>
+
+- value * => string : The value of the option
+- <strong>string *</strong> => string : The string attached to the option value
+
+For example :
+``` php
+$this->addField(array(
+    'field' => 'select',
+    'name' => 'year',
+    'label' => 'Year',
+    'options' => array(
+        array('string' => 2014, 'value' => '2014', 'selected'),
+        array('string' => 2013, 'value' => '2013'),
+        array('string' => 2012, 'value' => '2012')
+    )
+));
+```
+
+<h2>Textarea keywords</h2>
+
+- pattern => string : A regex which the value has to match. Will be checked in PHP too
