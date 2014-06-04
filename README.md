@@ -22,9 +22,9 @@ should be able to understand how to use it yourself).
 
 To create a form, you have to create a new class which extends the MayoForm class
 
-    ```php
-    class Form_Example extends MayoForm
-    {
-        ...
-    }
-    ```
+``` php
+class Form_Example extends MayoForm
+{
+    ...
+}
+```
