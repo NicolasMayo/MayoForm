@@ -125,20 +125,29 @@ echo $form;
 
 <h1>Fields options</h1>
 
-You can add any option you desire, they will be considered and displayed like field's attributes (such as name, value, ...).
+You can add any option you desire, they will be considered and displayed like field's attributes (such as name, value, ...). All 
 However, some options of the options listed below (the bold ones) are interpreted by MayoForm and are not displayed in the HTML code (those .
 
-Keyword marked by * are required.
+Keywords marked by * are required.
 
-<h2>Common keyword</h2>
+<h2>Common keywords</h2>
 
-- <strong>field *</strong> :        String - The type of the field. Can be 'input', 'submit', 'textarea' or 'select'
-- <strong>label *</strong> :        String - The label of the field
-- name * :                          String - The name attribute of the field
-- <strong>help</strong> :           String - A description of what is expected in the field
-- <strong>equals</strong> :         String - The name attribute of the field which must be equal to this field
+- <strong>field *</strong> : String - The type of the field. Can be 'input', 'submit', 'textarea' or 'select'
+- <strong>label *</strong> : String - The label of the field
+- name * : String - The name attribute of the field
+- <strong>help</strong> : String - A description of what is expected in the field
+- <strong>equals</strong> : String - The name attribute of the field which must be equal to this field
+- required : Whether the field is required or not (will be interpreted & checked by PHP)
 
-<h2>Input keyword</h2>
+<h2>Input keywords</h2>
 
 - type * : The type attribute of the input
-- allowed : Array of String - Extensions allowed if the field is an input[file] (currently support .gif, .jpeg, .png)
+- <strong>allowed</strong> : Array of String - Extensions allowed if the field is an input[file] (currently support .gif, .jpeg, .png)
+    Example : 'allowed' =>  array('gif', 'jpeg', 'png')
+- max_size : The max size of the file (will be interpreted & checked by PHP)
+
+<h3>Radios & Checkboxes</h3>
+
+- <strong>values *</strong> : Array of array - 
+
+<h2></h2>
