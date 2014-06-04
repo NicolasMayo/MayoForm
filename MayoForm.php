@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class Core_Form
+ * Class MayoForm
  * @author MaYo
  */
 abstract class MayoForm
@@ -14,6 +14,8 @@ abstract class MayoForm
     private $errors = array();
     private $submit = '';
     private $equals = array();
+
+    protected $submitName = 'send';
 
     public function __construct($attributes, $template = 'bootstrap')
     {
@@ -36,9 +38,9 @@ abstract class MayoForm
         return $this;
     }
 
-    public function addSubmit($name)
+    public function addSubmit()
     {
-        $this->submit = $name;
+        $this->submit = $this->submitName;
         return $this;
     }
 
@@ -116,7 +118,10 @@ abstract class MayoForm
         $this->fields[$field]->setIsError();
     }
 
-    public abstract function hasBeenSent();
+    public function hasBeenSent()
+    {
+        return isset($_POST[$this->submitName]);
+    }
 }
 
 /**
@@ -163,7 +168,7 @@ class Field
             unset($this->attributes['required']);
         }
 
-        require_once 'Form' . DS . 'Template' . DS . $template . '.php';
+        require_once 'Form' . DIRECTORY_SEPARATOR . 'Template' . DIRECTORY_SEPARATOR . $template . '.php';
     }
 
     public function __toString()
@@ -255,7 +260,7 @@ class Field
             if (!($key == 'value' && !$printValue)) {
                 if ($key == 'value') {
                     $string .= 'value="' . htmlspecialchars($val) . '" ';
-                } if ($key == 'name' && isset($this->attributes['type']) && $this->attributes['type'] == 'checkbox') {
+                } else if ($key == 'name' && isset($this->attributes['type']) && $this->attributes['type'] == 'checkbox') {
                     $string .= 'name="' . $val . '[]" ';
                 } else {
                     $string .= $key . '="' . $val . '" ';
@@ -271,12 +276,14 @@ class Field
         if ($this->attributes['field'] == 'input') {
             if ($this->attributes['type'] == 'radio' || $this->attributes['type'] == 'checkbox') {
                 if ($this->required && empty($value)) {
-                    return $this->error();
+                    $this->error = 'error';
+                    return false;
                 }
                 if (!empty($value)) {
                     foreach ((array) $value as $val) {
                         if (!in_array($val, array_values($this->attributes['values']))) {
-                            return $this->error();
+                            $this->error = 'error';
+                            return false;
                         } else {
                             $this->error = 'success';
                         }
@@ -285,12 +292,14 @@ class Field
 
             } if ($this->attributes['type'] == 'file') {
                 if (isset($this->attributes['required']) && empty($_FILES[$this->attributes['name']]['name'])) {
-                    return $this->error();
+                    $this->error = 'error';
+                    return false;
                 }
                 if (!empty($_FILES[$this->attributes['name']]['name'])) {
                     $files = $_FILES[$this->attributes['name']];
                     if (!is_uploaded_file($files['tmp_name'])) {
-                        return $this->error();
+                        $this->error = 'error';
+                        return false;
                     }
                     $type = getimagesize($files['tmp_name']);
                     $type = $type['mime'];
@@ -299,11 +308,13 @@ class Field
                     if ($type == 'image/gif') $type = 'gif';
                     $size = filesize($files['tmp_name']);
                     if ($this->max_size != 0 && $size > 0 && $this->max_size < $size) {
-                        return $this->error();
+                        $this->error = 'error';
+                        return false;
                     }
                     if (!empty($this->allowed)) {
                         if (!in_array($type, (array) $this->allowed)) {
-                            return $this->error();
+                            $this->error = 'error';
+                            return false;
                         }
                     }
                 }
@@ -311,20 +322,23 @@ class Field
 
             } else if ($this->attributes['type'] != 'submit') {
                 if (!empty($value) && $this->attributes['type'] == 'email') {
-                    if (!preg_match(REGEX_EMAIL, $value)) {
-                        return $this->error();
+                    if (!preg_match('#^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$#', $value)) {
+                        $this->error = 'error';
+                        return false;
                     }
                 } else if (!empty($value) && $this->attributes['type'] == 'date') {
                     $date = DateTime::createFromFormat("d/m/Y", $value);
                     if (!$date) {
-                        return $this->error();
+                        $this->error = 'error';
+                        return false;
                     }
                 }
                 if (
                     (isset($this->attributes['pattern']) && !preg_match('#'.$this->attributes['pattern'].'#', $value)) ||
                     (isset($this->attributes['required']) && empty($value))
                 ) {
-                    return $this->error();
+                    $this->error = 'error';
+                    return false;
                 }
 
                 $this->error = 'success';
@@ -333,24 +347,28 @@ class Field
 
         } else if ($this->attributes['field'] == 'textarea') {
             if (isset($this->attributes['pattern']) && !preg_match('#'.$this->attributes['pattern'].'#', $value)) {
-                return $this->error();
+                $this->error = 'error';
+                return false;
             }
             if (isset($this->attributes['required']) && empty($value)) {
-                return $this->error();
+                $this->error = 'error';
+                return false;
             }
             $this->error = 'success';
             $this->attributes['value'] = $value;
 
         } else if ($this->attributes['field'] == 'select') {
             if (isset($this->attributes['required']) && empty($value)) {
-                return $this->error();
+                $this->error = 'error';
+                return false;
             } else {
                 $this->error = 'success';
                 $this->attributes['value'] = $value;
             }
             foreach ((array) $value as $val) {
                 if (!in_array($val, array_keys($this->options))) {
-                    return $this->error();
+                    $this->error = 'error';
+                    return false;
                 } else {
                     $this->error = 'success';
                     $this->attributes['value'] = (array) $this->attributes['value'];
@@ -374,11 +392,5 @@ class Field
     public function setIsError()
     {
         $this->error = 'error';
-    }
-
-    private function error()
-    {
-        $this->error = 'error';
-        return false;
     }
 }
