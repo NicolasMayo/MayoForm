@@ -109,10 +109,10 @@ Your form is now complete, we will now see how to print and validate it. You can
 
 Now that your Form class is complete, you can print & validate the form using the following methods :
 
-- MayoForm::hasBeenSent() - boolean : Return TRUE if the form has been sent, FALSE otherwise
-- MayoForm::validate(array $post) - boolean : Return TRUE if the $post array matches the form expected values, FALSE otherwise
-- MayoForm::getValue(string $field) - mixed : Return the value of the field $field, or NULL if the field doesn't exist
-- MayoForm::__toString() - string : Prints the form
+- <strong>MayoForm::hasBeenSent()</strong> - boolean : Return TRUE if the form has been sent, FALSE otherwise
+- <strong>MayoForm::validate(array $post)</strong> - boolean : Return TRUE if the $post array matches the form expected values, FALSE otherwise
+- <strong>MayoForm::getValue(string $field)</strong> - mixed : Return the value of the field $field, or NULL if the field doesn't exist
+- <strong>MayoForm::__toString()</strong> - string : Prints the form
 
 ``` php
 $form = new Form_Example();
