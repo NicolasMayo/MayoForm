@@ -3,6 +3,7 @@ MayoForm
 
 PHP Class to easily generate &amp; validate HTML Forms.
 
+
 <h1>Installation</h1>
 
 To install, just copy the <strong>MayoForm.php</strong> file somewhere in your project (you can rename the file and/or the class to match
@@ -142,12 +143,12 @@ Keywords marked by * are required.
 - name * => string : The name attribute of the field
 - <strong>help</strong> => string : A description of what is expected in the field
 - <strong>equals</strong> => string : The name attribute of the field which must be equal to this field
-- required : Whether the field is required or not. Will be checked in PHP too
+- required : Whether the field is required or not. Will be checked in PHP
 
 <h2>Input keywords</h2>
 
 - type * => string : The type attribute of the input
-- pattern => string : A regex which the value has to match. Will be checked in PHP too
+- pattern => string : A regex which the value has to match. Will be checked in PHP
 
 <h3>Radios & Checkboxes</h3>
 
@@ -168,7 +169,7 @@ $this->addField(array(
 
 <h3>File</h3>
 
-- max_size => string : The max size of the file. Will be checked in PHP too
+- max_size => string : The max size of the file. Will be checked in PHP
 - <strong>allowed</strong> => Array of string : Extensions allowed (currently support .gif, .jpeg, .png). Will be checked in PHP
 
 For example :
@@ -207,4 +208,4 @@ $this->addField(array(
 
 <h2>Textarea keywords</h2>
 
-- pattern => string : A regex which the value has to match. Will be checked in PHP too
+- pattern => string : A regex which the value has to match. Will be checked in PHP
