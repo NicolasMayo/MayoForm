@@ -115,12 +115,17 @@ abstract class MayoForm
 
     public function setIsError($field)
     {
-        $this->fields[$field]->setIsError();
+        return isset($this->fields[$field]) ? $this->fields[$field]->setIsError() : FALSE;
+    }
+
+    public function getValue($field)
+    {
+        return isset($this->fields[$field]) ? $this->fields[$field]->getValue() : NULL;
     }
 
     public function hasBeenSent()
     {
-        return isset($_POST[$this->submitName]);
+        return isset($_{strtoupper($this->attributes['method'])}[$this->submitName]);
     }
 }
 
@@ -195,7 +200,7 @@ class Field
                         $tmpString .= 'checked="checked" ';
                     }
                     $tmpString .= '/>' . $label;
-                    $string .= sprintf(MAYOFORM_HTML_RADIO_CHECKBOX_LABEL, $class, $tmpString);
+                    $string .= sprintf(MAYOFORM_RADIO_CHECKBOX_LABEL, $class, $tmpString);
                 }
             } else {
 
@@ -229,13 +234,13 @@ class Field
             $string .= '</select>';
         }
 
-        if (!empty($this->help)) $string .= sprintf(MAYOFORM_HTML_INPUT_HELP, $this->help);
+        if (!empty($this->help)) $string .= sprintf(MAYOFORM_INPUT_HELP, $this->help);
         if (!empty($this->label)) {
-            $string = sprintf(MAYOFORM_HTML_FIELD_CONTAINER, $string);
-            $string = sprintf(MAYOFORM_HTML_INPUT_LABEL, $attributes['name'], $this->label) . $string;
-        } else $string = sprintf(MAYOFORM_HTML_FIELD_CONTAINER, $string);
+            $string = sprintf(MAYOFORM_FIELD_CONTAINER, $string);
+            $string = sprintf(MAYOFORM_INPUT_LABEL, $attributes['name'], $this->label) . $string;
+        } else $string = sprintf(MAYOFORM_FIELD_CONTAINER, $string);
 
-        return sprintf(MAYOFORM_HTML_FIELD_GLOBAL_CONTAINER, $this->error, $string);
+        return sprintf(MAYOFORM_FIELD_GLOBAL_CONTAINER, $this->error, $string);
     }
 
     public function getAttributes()
@@ -392,5 +397,6 @@ class Field
     public function setIsError()
     {
         $this->error = 'error';
+        return TRUE;
     }
 }
