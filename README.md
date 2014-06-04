@@ -59,7 +59,7 @@ class Form_Example extends MayoForm
 }
 ```
 
-Once the form is created, just add every field you need with the MayoForm::addField($array) method (see the "Field options" for more details).
+Once the form is created, just add every field you need with the MayoForm::addField($array) method (see the <a href="#fields-options">Fields options</a> section for more details).
 
 ``` php
 class Form_Example extends MayoForm
@@ -123,7 +123,7 @@ if($form->hasBeenSent()) {
 echo $form;
 ```
 
-<h1>Field options</h1>
+<h1>Fields options</h1>
 
 The keywords marked with * are required, the ones marked with ~ are required in some cases :
 
