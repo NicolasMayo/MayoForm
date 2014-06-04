@@ -132,22 +132,44 @@ Keywords marked by * are required.
 
 <h2>Common keywords</h2>
 
-- <strong>field *</strong> : String - The type of the field. Can be 'input', 'submit', 'textarea' or 'select'
-- <strong>label *</strong> : String - The label of the field
-- name * : String - The name attribute of the field
-- <strong>help</strong> : String - A description of what is expected in the field
-- <strong>equals</strong> : String - The name attribute of the field which must be equal to this field
-- required : Whether the field is required or not (will be interpreted & checked by PHP)
+- <strong>field *</strong> => string : The type of the field. Can be 'input', 'submit', 'textarea' or 'select'
+- <strong>label *</strong> => string : The label of the field
+- name * => string : The name attribute of the field
+- <strong>help</strong> => string : A description of what is expected in the field
+- <strong>equals</strong> => string : The name attribute of the field which must be equal to this field
+- required : Whether the field is required or not. Will be checked in PHP.
 
 <h2>Input keywords</h2>
 
-- type * : The type attribute of the input
-- <strong>allowed</strong> : Array of String - Extensions allowed if the field is an input[file] (currently support .gif, .jpeg, .png)
-    Example : 'allowed' =>  array('gif', 'jpeg', 'png')
-- max_size : The max size of the file (will be interpreted & checked by PHP)
+- type * => string - The type attribute of the input
 
 <h3>Radios & Checkboxes</h3>
 
-- <strong>values *</strong> : Array of array - 
+- <strong>values *</strong> => Array of (string => string) - Values and labels of all the choices
+
+For example :
+``` php
+$this->addField(array(
+    'field' => 'input',
+    'type' => 'checkbox',
+    'values' =>  array(
+        'Man' => 'M',
+        'Woman' => 'F')
+));
+```
+
+<h3>File</h3>
+
+- max_size => string - The max size of the file. Will be checked in PHP.
+- <strong>allowed</strong> => Array of string - Extensions allowed (currently support .gif, .jpeg, .png). Will be checked in PHP.
+
+For example :
+``` php
+$this->addField(array(
+    'field' => 'input',
+    'type' => 'file',
+    'allowed' => array('.gif', '.jpeg', '.png')
+));
+```
 
 <h2></h2>
