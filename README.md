@@ -100,8 +100,6 @@ class Form_Example extends MayoForm
     ....
     
     $this->addSubmit();
-                
-    ....
 }
 ```
 
@@ -117,10 +115,17 @@ $showForm = TRUE;
 
 if($form->hasBeenSent()) {
     if($form->validate($_POST)) {
-        echo 'Form sent !';
+        echo 'Form sent : Sexe = '.$form->getValue('sexe').' - Login = '.$form->getValue('login');
         $showForm = FALSE;
     }
 }
 
 echo $form;
 ```
+
+<h1>Field options</h1>
+
+The keywords marked with * are required, the ones marked with ~ are required in some cases :
+
+- field * : The type of the field. Can be 'input', 'submit', 'textarea' or 'select'
+- type ~ : The type of the input (like 'text', 'submit', 'radio', 'checkbox', ...). Required if the field value is 'input'
