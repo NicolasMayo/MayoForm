@@ -133,7 +133,7 @@ echo $form;
 <h1>Fields options</h1>
 
 You can add any option you desire (most likely 'id', 'class', 'style', ...), they will be considered and displayed like field's attributes (such as name, value, ...).
-However, some options of the options listed below (the bold ones) are interpreted by MayoForm and are not displayed in the HTML code (those .
+However, some of the options listed below (the bold ones) are interpreted by MayoForm and are not displayed in the HTML code.
 
 Keywords marked by * are required.
 
