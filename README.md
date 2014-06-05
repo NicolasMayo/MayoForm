@@ -8,12 +8,7 @@ Please not that this module is still in development, so source code may not be c
 
 <h1>Installation</h1>
 
-To install, just copy the <strong>MayoForm.php</strong> file somewhere in your project (you can rename the file and/or the class to match
-an eventual autoloader).
-
-You will also need all the constant defined in the file <strong>Form/Template/bootstrap.php</strong>. You can either copy-paste them or
-include the file directly (putting them in a file allows you to have several templates and choose the one you want to
-load on each page).
+To install, just copy the <strong>MayoForm.php</strong> file and the <strong>Form</strong> folder somewhere in your project.
 
 Note that the default template uses bootstrap, so you can load bootstrap CSS and have pretty forms without writing any
 CSS code.
@@ -211,3 +206,60 @@ $this->addField(array(
 <h2>Textarea keywords</h2>
 
 - pattern => string : A regex which the value has to match. Will be checked in PHP
+
+<h1>Templates</h1>
+
+You can define your own templates, just copy the <strong>Form/Template/bootstrap.php</strong> file, rename it and edit the defined variable to match the wanted result (be sure to keep all the '%s').
+
+To use your template, you can either make it as default for the form in your custom class to use it on all the fields
+
+``` php
+class Form_Example extends MayoForm
+{
+    ....
+    
+    public function __construct()
+    {
+        parent::__construct(array(
+            'action' => 'index.php',
+            'class' => 'form-horizontal',
+            'enctype' => 'multipart/form-data',
+            'method' => 'POST'
+        ), 'my_template'); // without the php extension
+    
+    ....
+}
+```
+
+Or use it only on some defined fields
+
+``` php
+class Form_Example extends MayoForm
+{
+    ....
+    
+    $this->addField(array(
+            'field' => 'input',
+            'label' => 'Sexe *',
+            'type' => 'radio',
+            'required',
+            'name' => 'sexe',
+            'values' => array(
+                'Man' => 'M',
+                'Woman' => 'W'
+            ),
+            'class' => 'inline',
+            'value' => 'M'), 'my_template') // without the php extension
+        ->addField(array(
+            'field' => 'input',
+            'type' => 'text',
+            'required',
+            'pattern' => '^[a-zA-Z0-9]{4,30}$',
+            'name' => 'login',
+            'label' => 'Login *',
+            'help' => 'From 4 to 30 characters (letters and digits only)',
+            'placeholder' => 'Login'))
+            
+    ....
+}
+```
