@@ -117,12 +117,13 @@ Now that your Form class is complete, you can print & validate the form using th
 - <strong>MayoForm::getValue(string $field)</strong> - mixed : Return the value of the field $field, or NULL if the field doesn't exist
 - <strong>MayoForm::getErrors()</strong> - array : Return an array with all error messages
 - <strong>MayoForm::setIsError(string $field)</strong> - boolean : Define the value of the field $field as an error. Return TRUE on success, FALSE otherwise
+- <strong>MayoForm::populate(array $datas)</strong> - void : Populate the form fields with the associated values from the array $datas
 - <strong>MayoForm::__toString()</strong> - string : Prints the form
 
 ``` php
 $form = new Form_Example();
 
-if($form->hasBeenSent() &&$form->validate($_POST)) {
+if($form->hasBeenSent() && $form->validate($_POST)) {
     echo 'Form sent : Sexe = '.$form->getValue('sexe').' - Login = '.$form->getValue('login');
 }
 
