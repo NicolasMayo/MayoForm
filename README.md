@@ -144,6 +144,7 @@ Keywords marked by * are required.
 - name * => string : The name attribute of the field
 - <strong>help</strong> => string : A description of what is expected in the field
 - <strong>equals</strong> => string : The name attribute of the field which must be equal to this field
+- <strong>error_msg</strong> => string : Set a custom error message for this field
 - required : Whether the field is required or not. Will be checked in PHP
 
 <h2>Input keywords</h2>
