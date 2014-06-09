@@ -14,6 +14,7 @@ abstract class MayoForm
     private $errors = array();
     private $submit = '';
     private $equals = array();
+    private $template;
 
     protected $submitName = 'send';
 
@@ -22,10 +23,14 @@ abstract class MayoForm
         foreach ($attributes as $key => $val) {
             $this->attributes[$key] = $val;
         }
+        $this->template = $template;
     }
 
-    public function addField($attributes)
+    public function addField($attributes, $template = '')
     {
+        if(empty($template)) {
+            $template = $this->template;
+        }
         if (isset($attributes['equals'])) {
             $this->equals[$attributes['name']] = $attributes['equals'];
             unset($attributes['equals']);
@@ -33,7 +38,7 @@ abstract class MayoForm
         if ($attributes instanceof Field) {
             $this->fields[$attributes['name']] = $attributes;
         } else {
-            $this->fields[$attributes['name']] = new Field($attributes);
+            $this->fields[$attributes['name']] = new Field($attributes, $template);
         }
         return $this;
     }
@@ -67,7 +72,7 @@ abstract class MayoForm
     public function populate($values)
     {
         foreach ($values as $name => $value) {
-            $this->fields[$name]->set($value);
+            isset($this->fields[$name]) ? $this->fields[$name]->set($value) : '';
         }
     }
 
@@ -125,7 +130,10 @@ abstract class MayoForm
 
     public function hasBeenSent()
     {
-        return isset($_{strtoupper($this->attributes['method'])}[$this->submitName]);
+        if(strtoupper($this->attributes['method']) === 'POST') {
+            return isset($_POST[$this->submitName]);
+        }
+        return isset($_GET[$this->submitName]);
     }
 }
 
@@ -145,7 +153,7 @@ class Field
     private $allowed = '';
     private $max_size = 0;
 
-    public function __construct($attributes, $template = 'bootstrap')
+    public function __construct($attributes, $template)
     {
         $specialKeys = array('options', 'error_msg', 'help', 'label', 'max_size', 'allowed');
 
